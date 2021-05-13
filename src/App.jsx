@@ -53,7 +53,7 @@ export default (props) => (
         <Input />
       </Card>
       <Card titulo="#10 - Contador" color="#293E6A">
-        <Contador passo={10}/>
+        <Contador passo={10} valor={100}/>
       </Card>
     </div>
   </div>

@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 
 export default class Contador extends Component {
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            passo: props.passo,
-            valor: 0
+    state = {
+            passo: this.props.passo || 1,
+            valor: this.props.valor || 0
         }
+
+    inc = () => {
+        this.setState({
+            valor: this.state.valor + this.state.passo
+        })
+    }    
+
+    dec = () => {
+        this.setState({
+            valor: this.state.valor - this.state.passo
+        })
     }
 
 
@@ -16,11 +24,18 @@ export default class Contador extends Component {
         return (
             <div>
                 <h2>Contador</h2>
-                <h4>Valor: {{this.state.props}} </h4>
+                <div>
+                    <label for="passoInput">Passos: </label>
+                    <input id="passoInput" type="number" style={{fontSize: '1.4rem', width: '50px'}}
+                        value={this.state.passo}
+                        onChange={event => this.setState({passo: +event.target.value})} />
+                </div>
+
+                <h4>Valor: {this.state.valor} </h4>
 
                 <div>
-                    <button>+</button>
-                    <button>-</button>
+                    <button onClick={this.inc}>+</button>
+                    <button onClick={this.dec}>-</button>
                 </div>
             </div>
         )
