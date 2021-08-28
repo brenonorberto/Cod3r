@@ -1,21 +1,33 @@
-import { useState } from 'react';
-import Porta from '../components/Porta';
-import PortaModel from '../model/porta'
-import { atualizarPortas, criarPortas } from '../functions/portas'
+import Cartao from '../components/Cartao'
+import styles from '../styles/Formulario.module.css'
+import Link from 'next/link'
+import EntradaNumerica from '../components/EntradaNumerica'
+import { useState } from 'react'
   
-export default function Home() {
-  const [portas, setPortas] = useState(criarPortas(3, 2))
-
-  function renderizarPortas() {
-    return portas.map(porta => {
-      return <Porta key={porta.numero} value={porta} onChange={novaPorta => setPortas(atualizarPortas(portas, novaPorta))}/>
-    })
-  }
- 
+export default function Formulario() {
+  const [qtdePortas, setQtdePortas] = useState(3)
+  const [comPresente, setComPresente] = useState(1)
 
   return (
-    <div style={{ display: 'flex' }}>
-      {renderizarPortas()}
+    <div className={styles.formulario}>
+      <div>
+        <Cartao bgcolor="#C0392C">
+          <h1>Monty Hall</h1>
+        </Cartao>
+        <Cartao>
+          <EntradaNumerica text="Qtde Portas?" value={qtdePortas} onChange={novaQtde => setQtdePortas(novaQtde)} />
+        </Cartao>
+      </div>
+      <div>
+        <Cartao>
+        <EntradaNumerica text="Porta com Presente?" value={comPresente} onChange={novaPortaComPresente => setComPresente(novaPortaComPresente)} />
+        </Cartao>
+        <Cartao bgcolor="#28A085">
+          <Link href={`/jogo/${qtdePortas}/${comPresente}`}>
+            <h2 className={styles.link}>Iniciar</h2>
+          </Link>
+        </Cartao>
+      </div>
     </div>
   )
 }
